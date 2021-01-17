@@ -1,0 +1,32 @@
+@import "../../../components/book/styles/book.module.scss";
+
+.review {
+	&-container {
+		width: calc(100% - 20px);
+		max-height: 100px;
+		// border: 1px solid lightblue;
+		margin: 5px;
+		padding: 5px;
+		overflow-y: hidden;
+	}
+	&-details {
+		height: 30px;
+		width: 100%;
+	}
+	&-username {
+		width: fit-content;
+		color: blue;
+	}
+	&-rating {
+		font-family: $rating-font;
+		font-size: $small-font-size;
+	}
+	&-date {
+		color: $date-color;
+		float: right;
+	}
+	&-content {
+		overflow-y: scroll;
+		max-height: 80px;
+	}
+}

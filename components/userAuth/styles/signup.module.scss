@@ -1,0 +1,73 @@
+@import "../../../pages/styles/main.scss";
+
+$input-width: 225px;
+$input-height: $input-large-height;
+$input-margin-bottom: 5px;
+$input-font-size: 16px;
+
+.signup {
+	&-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+	}
+	&-box {
+		margin: auto;
+		background-color: $signup-background-color;
+		box-shadow: $signup-box-shadow;
+		padding: 20px;
+		border-radius: $border-radius;
+	}
+
+	&-logo {
+		width: 80px;
+		height: 80px;
+		margin: 20px auto;
+	}
+	&-input {
+		padding: 8px;
+		width: $input-width;
+		box-sizing: border-box;
+		border-radius: $border-radius;
+		border: 1px solid $grey-color;
+		height: $input-height;
+		color: $dark-brown;
+		font-family: $default-font-family;
+		font-size: $input-font-size;
+	}
+
+	&-text {
+		font-family: $default-font-family;
+		color: $signup-input-font-color;
+	}
+	&-textWrapper {
+		margin-bottom: $input-margin-bottom;
+	}
+
+	&-password,
+	&-username {
+		margin-bottom: $input-margin-bottom;
+		width: $input-width;
+	}
+
+	&-submit {
+		margin-top: 10px;
+		width: $input-width;
+		height: $input-height;
+		font-size: $input-font-size;
+		background-color: $signup-background-color;
+		border: 1px solid white;
+		border-radius: $border-radius;
+		color: $signup-input-font-color;
+		cursor: pointer;
+		@include justifyCenter();
+		&:hover {
+			background-color: $signup-input-font-color;
+			transition: $transition-length;
+			color: $signup-background-color;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+}

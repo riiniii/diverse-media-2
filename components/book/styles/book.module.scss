@@ -1,0 +1,50 @@
+@import "../../../pages/styles/main.scss";
+.book {
+	width: 300px;
+	height: 250px;
+	display: flex;
+	padding-top: 10px;
+	padding-left: 10px;
+	margin: 0px 5px 10px 5px;
+	border: lightgoldenrodyellow;
+	background-color: gray;
+	flex-basis: calc(25% - 20px);
+	&-title {
+		font-weight: bold;
+		color: #333333;
+		font-size: 24px;
+		font-weight: normal;
+		line-height: 1.25;
+		font-family: "Merriweather", "Georgia", serif;
+		font-weight: bold;
+	}
+	&-rating {
+		font-family: $rating-font;
+		font-size: $small-font-size;
+	}
+	&-image {
+		width: 80px;
+		box-shadow: $book-box-shadow;
+	}
+
+	&-titleContainer,
+	&-authorContainer,
+	&-ratingContainer {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	&-descriptionContainer {
+		overflow-y: scroll;
+		height: 180px;
+	}
+}
+
+.left {
+	width: 80px;
+	margin-right: 10px;
+}
+
+.right {
+	width: 200px;
+}

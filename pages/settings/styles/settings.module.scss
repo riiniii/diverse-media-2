@@ -1,0 +1,53 @@
+@import "../../../pages/styles/main.scss";
+
+.settings {
+	&-wrapper {
+		width: calc(100% - 40px);
+		height: 100%;
+		display: flex;
+		padding: 0 20px;
+	}
+	&-account {
+		&--info {
+			width: 20%;
+			// border: 1px solid pink;
+			padding: 0px 15px;
+		}
+		&--books {
+			width: 80%;
+		}
+	}
+
+	&-user {
+		&--image {
+			width: 150px;
+			height: 150px;
+			margin: 20px auto;
+			border-radius: 100%;
+			border: 1px solid blue;
+		}
+		&--name {
+			font-weight: bold;
+			font-size: 24px;
+		}
+	}
+
+	&-reviews,
+	&-books {
+		height: calc(100% - 50px);
+		// border: 1px solid blue;
+		overflow-y: scroll;
+	}
+
+	&-dateJoined,
+	&-userId {
+		font-size: 12px;
+		color: #ddd;
+	}
+	&-subcontainer {
+		&--books,
+		&--reviews {
+			height: 50%;
+		}
+	}
+}

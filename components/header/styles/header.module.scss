@@ -1,0 +1,46 @@
+@import "../../../pages/styles/main.scss";
+#mainContainer {
+	background-color: rgb(255, 255, 255);
+	width: 100%;
+	height: calc(100% - 70px); // 50 + 20
+	top: 50px;
+	position: relative;
+	padding: 10px 0px;
+}
+
+.header {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 70;
+	background-color: $header-background-color;
+	box-shadow: $header-box-shadow;
+	&-content {
+		box-sizing: border-box;
+		height: 50px;
+		margin: 0 auto;
+		width: 100%;
+		display: flex;
+	}
+	&-searchBar {
+		display: inline-block;
+		margin-bottom: 0px !important;
+		margin-top: 9px;
+		vertical-align: top;
+		flex: 1;
+		margin-right: 8px;
+	}
+	&-icon {
+		margin: $header-margin;
+	}
+	&-account {
+		&--inner {
+			margin: 5.5px 0px;
+			color: $header-font-color;
+			cursor: pointer;
+		}
+		&--button {
+			margin: $header-margin;
+		}
+	}
+}

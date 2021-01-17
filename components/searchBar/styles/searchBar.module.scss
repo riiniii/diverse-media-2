@@ -1,0 +1,24 @@
+.searchBar {
+	position: relative;
+	&-input {
+		background: #ffffff;
+		border-radius: 3px;
+		border: #dcd6cc 1px solid;
+		color: #333333;
+		font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+		resize: none;
+		height: 32px;
+		flex: 1;
+		padding: 4px 26px 4px 8px;
+		width: 100%;
+		box-sizing: border-box;
+		position: relative;
+	}
+	&-button {
+		right: 4px;
+		top: 6.5px;
+		background-color: transparent;
+		border: none;
+		position: absolute;
+	}
+}

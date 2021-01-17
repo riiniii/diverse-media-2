@@ -1,0 +1,45 @@
+@import "../../../components/book/styles/book.module.scss";
+@import "../../styles/main.scss";
+
+.bookPage {
+	height: calc(100% - 20px);
+	display: flex;
+	padding: 0px 10px 10px 10px;
+}
+
+.bookDetails {
+	width: 65%;
+	height: 100%;
+	// background-color: lightblue;
+	display: flex;
+}
+
+.bookComments {
+	width: 30%;
+	height: 100%;
+	// background-color: lightpink;
+}
+
+.bookImage {
+	width: 150px;
+	box-shadow: $book-box-shadow;
+}
+
+.bookDetailWrapper {
+	width: calc(100% - 10px);
+	margin-left: 10px;
+}
+
+.ratingContainer {
+	margin-bottom: 10px;
+}
+.descriptionContainer {
+	padding-right: 10px;
+}
+
+.separator {
+	width: 1px;
+	height: 100%;
+	background-color: #ddd;
+	margin: 0px 20px;
+}
