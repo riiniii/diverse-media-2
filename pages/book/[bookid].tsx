@@ -13,6 +13,7 @@ const mockReviews = new Array(10).fill(0);
 const book: React.FC<IBookProps> = (props: IBookProps) => {
 	const [searchInput, setSearchInput] = useState("");
 	const [searchType, setSearchType] = useState("title");
+	const [bookDetails, setBookDetails] = useState();
 	const fetchData = async () => {
 		const response = await api.post("/api/books", {
 			pagination: { start: 0, pageSize: 20 },
@@ -24,12 +25,13 @@ const book: React.FC<IBookProps> = (props: IBookProps) => {
 			console.log("resp", response);
 		}
 	};
+
 	fetchData();
 
 	const { imgUrl, title, author, rating, description } = mockBooks[0]; // props
 
 	// mock reviews
-	return (
+	return bookDetails ? (
 		<div className={styles.bookPage}>
 			<div className={styles.bookDetails}>
 				<div className={styles.bookImageWrapper}>
@@ -62,6 +64,8 @@ const book: React.FC<IBookProps> = (props: IBookProps) => {
 				))}
 			</div>
 		</div>
+	) : (
+		<div>Book Does Not Exist In Our Catalogue</div>
 	);
 };
 

@@ -1,4 +1,5 @@
 import classnames from "classnames/bind";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 
 import { AddBookshelfButton } from "../AddBookshelfButton";
@@ -31,8 +32,12 @@ export const Book: React.FC<IBookProps> = (props: IBookProps) => {
 		},
 	} = props;
 	const { isLoggedIn } = useContext(AuthContext);
+	
+	const router = useRouter();
+	const routeToBook = () => router.push(`/api/book/${isbn}`);
+
 	return (
-		<div className={cx("book")} data-isbn={isbn}>
+		<div className={cx("book")} data-isbn={isbn} onClick={routeToBook}>
 			<div className={cx("left")}>
 				<img className={cx("book-image")} src={imgUrl} alt={title} />
 				{isLoggedIn ? <AddBookshelfButton /> : null}
