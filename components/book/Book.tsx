@@ -1,6 +1,8 @@
 import classnames from "classnames/bind";
+import { useContext } from "react";
 
 import { AddBookshelfButton } from "../AddBookshelfButton";
+import { AuthContext } from "../authContext";
 
 import styles from "./styles/book.module.scss";
 
@@ -28,21 +30,23 @@ export const Book: React.FC<IBookProps> = (props: IBookProps) => {
 			description = "",
 		},
 	} = props;
+	const { isLoggedIn } = useContext(AuthContext);
 	return (
 		<div className={cx("book")} data-isbn={isbn}>
 			<div className={cx("left")}>
 				<img className={cx("book-image")} src={imgUrl} alt={title} />
-				<AddBookshelfButton />
+				{isLoggedIn ? <AddBookshelfButton /> : null}
 			</div>
 			<div className={cx("right")}>
 				<div className={cx("book-titleContainer")} title={title}>
-					<span className={cx("title")}>{title}</span>
+					<span className={cx("book-title")}>{title}</span>
 				</div>
 				<div className={cx("book-authorContainer")}>
 					<span>by </span>
 					<span className={cx("book-author")}>{author}</span>
 				</div>
 				<div className={cx("book-ratingContainer")}>
+					<span>Rating </span>
 					<span className={cx("book-rating")}>{rating}</span>
 				</div>
 				<div className={cx("book-descriptionContainer")}>

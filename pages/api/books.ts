@@ -5,21 +5,24 @@ import { allDefined } from "../../utils/util";
 export default async (req, res: IObject) => {
 	try {
 		let bookQuery; // query we build onto
-		const totalQuery = "SELECT count(isbn) FROM books;";
+		const totalQuery = SQL`SELECT count(isbn) FROM books;`;
 
 		const total = await query(totalQuery);
-		const totalCount = total[0]["count(isbn)"]; // will always return this
+		console.log("req", req.method, req, total);
+
+		// const totalCount = total[0]["count(isbn)"]; // will always return this
 		if (req.method === "POST") {
 			const {
 				body: {
-					pagination: { start, pageSize },
-					sort: { type, direction },
+					pagination: { start = 0, pageSize = 20 },
+					sort: { type, direction = "asc" },
 					filter: { filterBy = "" },
 				},
 			} = req;
-			const defaultQuery = SQL`SELECT * from books WHERE `.append(type);
-			const filterQuery = SQL` LIKE ${filterBy}`;
 
+			const defaultQuery = SQL`SELECT * from books WHERE `.append(type);
+
+			const filterQuery = SQL` LIKE ${filterBy}`;
 			bookQuery = defaultQuery.append(filterQuery);
 			// needs to be in 'like', 'order by', and 'limit' order
 			if (allDefined(direction)) {
@@ -35,11 +38,10 @@ export default async (req, res: IObject) => {
 			} else if (allDefined(start)) {
 				bookQuery = defaultQuery.append(` LIMIT ${start}`);
 			}
-
+			console.log("resulting query", bookQuery);
 			const books = await query(bookQuery);
 
-			res.statusCode = 200;
-			return res.send({ total: totalCount, books });
+			return res.status(200).json({ books });
 		}
 	} catch (err) {
 		res.statusCode = 500;

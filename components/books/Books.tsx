@@ -13,12 +13,10 @@ export interface IBooksProps {
 export const Books: React.FC<IBooksProps> = (props: IBooksProps) => {
 	const { books: bookDetails = [] } = props;
 	return (
-		<div className={cx("booksContainer")}>
-			{/* <div className={styles.book}> */}
+		<div className={cx("booksContainer")	}>
 			{bookDetails.map((bookDetail, index: number) => (
 				<Book data={bookDetail} key={index} />
 			))}
-			{/* </div> */}
 		</div>
 	);
 };

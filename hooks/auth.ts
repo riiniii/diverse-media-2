@@ -20,11 +20,15 @@ export const useLogin = () => {
 				setCookie(COOKIE_NAME, data);
 				updateLoggedIn(true);
 				router.push("/");
+			} else {
+				updateLoggedIn(false);
+				router.push("/login");
 			}
 		} catch (error) {
 			console.log("login error", error);
 		}
 	};
+	console.log("our logiged in ", isLoggedIn);
 	return { isLoggedIn, onLogin };
 };
 export const useSignup = () => {
@@ -53,4 +57,34 @@ export const useSignup = () => {
 	};
 
 	return { isLoggedIn, onSignup };
+};
+
+export const useAuth = () => {
+	const { updateLoggedIn } = useContext(AuthContext);
+	const [cookies] = useCookies([COOKIE_NAME]);
+	const router = useRouter();
+	const getAuth = async () => {
+		let isMe = false;
+		try {
+			const {
+				data: { isMe = false },
+			} = await api.post("api/users/me", {
+				token: cookies[COOKIE_NAME],
+			});
+			updateLoggedIn(isMe);
+			// isMe = !!data;
+			console.log("used auth", isMe);
+		} catch (error) {
+			updateLoggedIn(false);
+			router.push("/login");
+			isMe = false;
+			console.log("error", error);
+		}
+
+		return isMe;
+	};
+
+	return {
+		getAuth,
+	};
 };

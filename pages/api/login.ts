@@ -1,6 +1,5 @@
 import query from "../../utils/db";
 import escape from "sql-template-strings";
-import argon2 from "argon2";
 import { errorResponse } from "../../utils/api";
 
 export default async (req, res) => {

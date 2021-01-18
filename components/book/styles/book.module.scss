@@ -6,13 +6,14 @@
 	padding-top: 10px;
 	padding-left: 10px;
 	margin: 0px 5px 10px 5px;
-	border: lightgoldenrodyellow;
-	background-color: gray;
 	flex-basis: calc(25% - 20px);
+	box-shadow: $book-box-shadow;
+	border-radius: 4px;
+	background-color: $book-detail-color;
 	&-title {
+		font-size: 16px;
 		font-weight: bold;
 		color: #333333;
-		font-size: 24px;
 		font-weight: normal;
 		line-height: 1.25;
 		font-family: "Merriweather", "Georgia", serif;
