@@ -7,10 +7,6 @@ export default async (req, res: IObject) => {
 		let bookQuery; // query we build onto
 		const totalQuery = SQL`SELECT count(isbn) FROM books;`;
 
-		const total = await query(totalQuery);
-		console.log("req", req.method, req, total);
-
-		// const totalCount = total[0]["count(isbn)"]; // will always return this
 		if (req.method === "POST") {
 			const {
 				body: {
@@ -25,7 +21,7 @@ export default async (req, res: IObject) => {
 			const filterQuery = SQL` LIKE ${filterBy}`;
 			bookQuery = defaultQuery.append(filterQuery);
 			// needs to be in 'like', 'order by', and 'limit' order
-			if (allDefined(direction)) {
+			if (allDefined(direction) && type !== "isbn") {
 				const orderQuery = SQL` ORDER BY `
 					.append(type)
 					.append(` `)
@@ -38,9 +34,8 @@ export default async (req, res: IObject) => {
 			} else if (allDefined(start)) {
 				bookQuery = defaultQuery.append(` LIMIT ${start}`);
 			}
-			console.log("resulting query", bookQuery);
 			const books = await query(bookQuery);
-
+			console.log("book query ", bookQuery); // books);
 			return res.status(200).json({ books });
 		}
 	} catch (err) {

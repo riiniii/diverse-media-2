@@ -36,7 +36,6 @@ export const UserAuth = (props: IUserAuthProps) => {
 	};
 	const onClick = () => onSubmit({ username, password });
 	const onKeyDown = (e: React.KeyboardEvent) => {
-		console.log('key', e.key)
 		if (e.key === "Enter") {
 			onClick();
 		}

@@ -32,9 +32,9 @@ export const Book: React.FC<IBookProps> = (props: IBookProps) => {
 		},
 	} = props;
 	const { isLoggedIn } = useContext(AuthContext);
-	
+
 	const router = useRouter();
-	const routeToBook = () => router.push(`/api/book/${isbn}`);
+	const routeToBook = () => router.push(`/book/${isbn}`);
 
 	return (
 		<div className={cx("book")} data-isbn={isbn} onClick={routeToBook}>

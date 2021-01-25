@@ -6,7 +6,6 @@ export default async (req, res) => {
 	const {
 		body: { username, password },
 	} = req;
-	console.log("user request was made", username, password);
 	try {
 		const usersRes = await query(escape`
 		select * from users where username = ${password} and password = ${password};`);

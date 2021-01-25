@@ -28,7 +28,6 @@ export const useLogin = () => {
 			console.log("login error", error);
 		}
 	};
-	console.log("our logiged in ", isLoggedIn);
 	return { isLoggedIn, onLogin };
 };
 export const useSignup = () => {
@@ -63,25 +62,24 @@ export const useAuth = () => {
 	const { updateLoggedIn } = useContext(AuthContext);
 	const [cookies] = useCookies([COOKIE_NAME]);
 	const router = useRouter();
+
 	const getAuth = async () => {
-		let isMe = false;
 		try {
 			const {
-				data: { isMe = false },
+				data: { isMe },
 			} = await api.post("api/users/me", {
 				token: cookies[COOKIE_NAME],
 			});
+
 			updateLoggedIn(isMe);
-			// isMe = !!data;
-			console.log("used auth", isMe);
+			return isMe;
 		} catch (error) {
 			updateLoggedIn(false);
 			router.push("/login");
-			isMe = false;
 			console.log("error", error);
 		}
 
-		return isMe;
+		return false;
 	};
 
 	return {

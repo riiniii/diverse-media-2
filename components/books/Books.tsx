@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import classnames from "classnames/bind";
 import { NextPage } from "next";
-import { SearchContext } from "../searchContext";
 import api from "../../services/api";
 import { Book, IBookDetails } from "../book";
 
@@ -14,15 +13,13 @@ export interface IBooksProps {
 	books: IBookDetails[];
 }
 
-export const Books: NextPage<IBooksProps> = (props: IBooksProps) => {
+export const Books: NextPage<IBooksProps> = (props: IBooksProps, ctx: any) => {
 	const router = useRouter();
 	const {
 		query: { searchString = "" },
 	} = router;
 
 	const [books, setBooks] = useState([]);
-
-	// const { books = [] } = props;
 
 	// get books on the book page
 	const getBooks = async () =>
@@ -55,11 +52,6 @@ Books.getInitialProps = async ({ query: { searchString = "" } }) => {
 			sort: { type: "title", direction: "asc" }, // type: authors, title, rating
 			filter: { filterBy: `%${searchString}%` },
 		});
-	// const setBooksFromData = async () => {
-	// 	const { data } = await getBooks();
-	// 	setBooks(data?.books || []);
-	// };
-	// setBooksFromData();
 
 	const { data } = await getBooks();
 	return data?.books || [];

@@ -11,7 +11,7 @@ import styles from "../header/styles/header.module.scss";
 
 export const withHeader = (Component) => (props: any) => {
 	const { getAuth } = useAuth();
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setLoading] = useState(true);
 	// serach context
 	const [searchString, setSearchString] = useState("");
 	const [searchType, setSearchType] = useState<BookType>("title");
@@ -19,10 +19,10 @@ export const withHeader = (Component) => (props: any) => {
 	// auth context
 	const [isLoggedIn, setLoggedIn] = useState(false);
 
-	const updateLoggedIn = (isLoggedIn) => {
+	const updateLoggedIn = (isLoggedIn: boolean) => {
 		setLoggedIn(isLoggedIn);
+		setLoading(false);
 	};
-
 	const ctx = {
 		isLoggedIn,
 		updateLoggedIn,
@@ -38,16 +38,17 @@ export const withHeader = (Component) => (props: any) => {
 
 	useEffect(() => {
 		try {
-			const isMe = getAuth();
-			updateLoggedIn(isMe);
+			const checkItsMe = async () => {
+				const isMe = await getAuth();
+				updateLoggedIn(isMe);
+			};
+			checkItsMe();
 		} catch (error) {
 			updateLoggedIn(false);
-			console.log(error);
 		}
-		setIsLoading(false);
 	}, []);
 
-	return (
+	return !isLoading ? (
 		<AuthContext.Provider value={ctx}>
 			<SearchContext.Provider value={searchCtx}>
 				<Header />
@@ -60,5 +61,7 @@ export const withHeader = (Component) => (props: any) => {
 				)}
 			</SearchContext.Provider>
 		</AuthContext.Provider>
+	) : (
+		<div>loading</div>
 	);
 };

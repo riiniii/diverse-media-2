@@ -24,7 +24,7 @@ export const mockReview = {
 	username: "riiniii",
 	date: new Date(),
 	review:
-		"great book! when i read this i was transported into a nice fluffy world. i loved the words that wrapper around me and that led me from one place to another. some cruel, some joyful. but i'm endlessly grateful for that CAFFEINEEEE!!! L-theanine only tho",
+		"great book! this book showed me a new world and i'm really grateful for that.",
 	rating: 4,
 	isbn: "9780141991535",
 };

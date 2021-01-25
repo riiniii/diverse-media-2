@@ -6,7 +6,6 @@ const argon2 = require("argon2");
 
 export default async (req, res) => {
 	const { username, password: hash } = req;
-	console.log("user request was made", req);
 	try {
 		const hash = await argon2.hash("password");
 

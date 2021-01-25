@@ -14,13 +14,11 @@ export default async (req, res) => {
 		body: { username, password },
 	} = req;
 
-	console.log("user request was made", req.body);
 	try {
 		const usersRes = await query(escape`
 		SELECT *
 		FROM users WHERE username = ${username};
 		  `);
-		console.log("usersres", usersRes);
 		if (argon2.verify(usersRes?.[0]?.pw, password)) {
 			const token = jwt.sign({ username, password }, JWT_HASH, {
 				expiresIn: "1d",
