@@ -8,8 +8,6 @@ export const login = (cookie: string) => {
 		if (decoded) {
 			return true;
 		}
-
-		return false;
 	});
 	return false;
 };
