@@ -1,5 +1,7 @@
+import { useContext, useEffect } from "react";
 import dayjs from "dayjs";
 import classnames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import { withHeader } from "../../components/withHeader";
 import { Review } from "../../components/review";
@@ -9,6 +11,7 @@ import { mockUser } from "../../utils/mock/mockData";
 import { mockBooks, mockReview } from "../../utils/mock";
 
 import styles from "./styles/settings.module.scss";
+import { AuthContext } from "../../components/authContext";
 
 const cx = classnames.bind(styles);
 const mockReviews = new Array(10).fill(0);
@@ -32,7 +35,15 @@ const Settings: React.FC<ISettingsProps> = (props: ISettingsProps) => {
 		userImgUrl = "",
 		dateJoined,
 	}: ISettingsProps = mockUser;
+	const router = useRouter();
+	const { isLoggedIn } = useContext(AuthContext);
 	const day = dayjs(dateJoined.getTime());
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			router.push("/");
+		}
+	}, []);
 	return (
 		<div className={cx("settings-wrapper")}>
 			<div className={cx("settings-account--info")}>

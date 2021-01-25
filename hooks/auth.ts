@@ -20,6 +20,9 @@ export const useLogin = () => {
 				setCookie(COOKIE_NAME, data);
 				updateLoggedIn(true);
 				router.push("/");
+			} else {
+				updateLoggedIn(false);
+				router.push("/login");
 			}
 		} catch (error) {
 			console.log("login error", error);
@@ -53,4 +56,33 @@ export const useSignup = () => {
 	};
 
 	return { isLoggedIn, onSignup };
+};
+
+export const useAuth = () => {
+	const { updateLoggedIn } = useContext(AuthContext);
+	const [cookies] = useCookies([COOKIE_NAME]);
+	const router = useRouter();
+
+	const getAuth = async () => {
+		try {
+			const {
+				data: { isMe },
+			} = await api.post("api/users/me", {
+				token: cookies[COOKIE_NAME],
+			});
+
+			updateLoggedIn(isMe);
+			return isMe;
+		} catch (error) {
+			updateLoggedIn(false);
+			router.push("/login");
+			console.log("error", error);
+		}
+
+		return false;
+	};
+
+	return {
+		getAuth,
+	};
 };

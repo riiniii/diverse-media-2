@@ -15,7 +15,6 @@ const config = {
 const db = mysql(config);
 const query = async (query) => {
 	try {
-		console.log("query", query);
 		const results = await db.query(query);
 
 		await db.end();

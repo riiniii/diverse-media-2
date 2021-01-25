@@ -1,32 +1,44 @@
-import { useState } from "react";
-import { IBookProps } from "../../components/book";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { NextPage } from "next";
+
+import { IBookDetails, IBookProps } from "../../components/book";
 import { withHeader } from "../../components/withHeader";
 import { Review } from "../../components/review";
 import { AddBookshelfButton } from "../../components/AddBookshelfButton";
-import { mockBooks, mockReview } from "../../utils/mock";
+import { getBookByIsbn } from "../../hooks/search";
 
 import styles from "./styles/book.module.scss";
 
-import api from "../../services/api";
-
+// TO-DO: mock implement w real data and
+import { mockReview } from "../../utils/mock";
 const mockReviews = new Array(10).fill(0);
-const book: React.FC<IBookProps> = (props: IBookProps) => {
-	const [searchInput, setSearchInput] = useState("");
-	const [searchType, setSearchType] = useState("title");
-	const fetchData = async () => {
-		const response = await api.post("/api/books", {
-			pagination: { start: 0, pageSize: 20 },
-			sort: { type: searchType, direction: "asc" }, // type: authors, title, rating
-			filter: { filterBy: `%${searchInput}%` },
-		});
-		if (response.status === 200 && response) {
-			// onReceivedBooks(response.data);
-			console.log("resp", response);
-		}
-	};
-	fetchData();
 
-	const { imgUrl, title, author, rating, description } = mockBooks[0]; // props
+const Book: NextPage<IBookProps> = () => {
+	const router = useRouter();
+	const [bookDetails, setBookDetails] = useState<IBookDetails>();
+	const [isLoading, setLoading] = useState(true);
+	const updateBookDetails = (bookDetails: IBookDetails) => {
+		setBookDetails(bookDetails)
+		setLoading(false);	
+	}
+	useEffect(() => {
+		getBookByIsbn(updateBookDetails, router);
+	}, []);
+	if (isLoading) {
+		return <div>Finding your book...</div>;
+	}
+	if (!bookDetails) {
+		return <div>Book Does Not Exist In Our Catalogue</div>;
+	}
+
+	const {
+		imgUrl = "",
+		title = "",
+		author = "",
+		rating = "",
+		description = "",
+	} = bookDetails || ({} as IObject);
 
 	// mock reviews
 	return (
@@ -42,7 +54,7 @@ const book: React.FC<IBookProps> = (props: IBookProps) => {
 					</div>
 					<div>
 						<span className={styles.by}>by </span>
-						<span className={styles.author}>{author.join(",")}</span>
+						<span className={styles.author}>{author}</span>
 					</div>
 					<div className={styles.ratingContainer}>
 						<span className={styles.rating}>{rating}</span>
@@ -64,5 +76,12 @@ const book: React.FC<IBookProps> = (props: IBookProps) => {
 		</div>
 	);
 };
+// TO-DO: find route cause as to why  getServerSideProps retriggers
+// nextjs routerempty fn to retrigger withRouter correctly
+export async function getServerSideProps() {
+	return {
+		props: {}, // will be passed to the page component as props
+	};
+}
 
-export default withHeader(book);
+export default withHeader(Book);
